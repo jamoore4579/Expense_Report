@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended : false }))
 
 // create
 app.post('/insert', (request, response) => {
-
+    const { name } = request.body
 })
 
 // read
@@ -24,7 +24,7 @@ app.get('/getAll', (request, response) => {
     result
     .then(data => response.json({data : data}))
     .catch(err => console.log(err))
-    
+
 })
 
 // update

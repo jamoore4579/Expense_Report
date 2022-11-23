@@ -42,6 +42,27 @@ class db_config {
             console.log(error)
         }
     }
+
+    async insertNewName(name) {
+        try {
+            const dateAdded = new Date()
+            const insertId = await new Promise((resolve, reject) => {
+
+                const query = "INSERT INTO sample (name, date_added) VALUES (?, ?);"
+
+                connection.query(query, [name, dateAdded], (err, result) => {
+                    if (err) reject(new Error(err.message))
+                    resolve(result.insertId)
+                })
+            })
+
+            //console.log(response)
+            return response
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
 }
 
 module.exports = db_config
