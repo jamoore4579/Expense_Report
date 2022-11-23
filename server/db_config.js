@@ -56,8 +56,8 @@ class db_config {
                 })
             })
 
-            //console.log(response)
-            return response
+            console.log(insertId)
+            //return response
 
         } catch (err) {
             console.log(err)
