@@ -109,7 +109,7 @@ class db_config {
         try {
             const response = await new Promise((resolve, reject) => {
 
-                const query = "SELECT * FROM expense_records WHERE expense_records = ?;"
+                const query = "SELECT * FROM expense_records WHERE name = ?;"
 
                 connection.query(query, [name], (err, results) => {
                     if (err) reject(new Error(err.message))
