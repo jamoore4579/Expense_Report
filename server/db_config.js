@@ -27,7 +27,7 @@ class db_config {
         try {
             const response = await new Promise((resolve, reject) => {
 
-                const query = "SELECT * FROM sample;"
+                const query = "SELECT * FROM expense_records;"
 
                 connection.query(query, (err, results) => {
                     if (err) reject(new Error(err.message))
@@ -35,7 +35,6 @@ class db_config {
                 })
             })
 
-            //console.log(response)
             return response
 
         } catch (error) {
@@ -48,19 +47,41 @@ class db_config {
             const dateAdded = new Date()
             const insertId = await new Promise((resolve, reject) => {
 
-                const query = "INSERT INTO sample (name, date_added) VALUES (?, ?);"
+                const query = "INSERT INTO expense_records (name, date_added) VALUES (?, ?);"
 
                 connection.query(query, [name, dateAdded], (err, result) => {
                     if (err) reject(new Error(err.message))
                     resolve(result.insertId)
                 })
             })
-
-            console.log(insertId)
-            //return response
+            
+            return {
+                id : insertId,
+                name : name,
+                dateAdded : dateAdded
+            }
 
         } catch (err) {
             console.log(err)
+        }
+    }
+
+    async deleteRowById(id) {
+        try {
+            id = parseInt(id, 10)
+            const response = await new Promise((resolve, reject) => {
+                const query = "DELETE FROM expense_records WHERE id = ?;"
+
+            connection.query(query, [id] , (err, result) => {
+                if(err) reject(new Error(err.message))
+                resolve(result)
+            })
+        })
+
+            console.log(response)
+            
+        } catch (error) {
+            console.log(error)
         }
     }
 }
